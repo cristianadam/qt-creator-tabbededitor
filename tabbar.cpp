@@ -7,9 +7,9 @@
 #include <coreplugin/coreconstants.h>
 #include <coreplugin/editormanager/editormanager.h>
 #include <coreplugin/editormanager/ieditor.h>
-#include <coreplugin/fileiconprovider.h>
 #include <coreplugin/idocument.h>
-#include <projectexplorer/session.h>
+#include <coreplugin/session.h>
+#include <utils/fsengine/fileiconprovider.h>
 
 #include <QMenu>
 #include <QMouseEvent>
@@ -49,9 +49,9 @@ TabBar::TabBar(QWidget *parent) :
     connect(this, &QTabBar::currentChanged, this, &TabBar::activateEditor);
     connect(this, &QTabBar::tabCloseRequested, this, &TabBar::closeTab);
 
-    ProjectExplorer::SessionManager *sm = ProjectExplorer::SessionManager::instance();
-    connect(sm, &ProjectExplorer::SessionManager::sessionLoaded, [this, em]() {
-        foreach (Core::DocumentModel::Entry *entry, Core::DocumentModel::entries())
+    Core::SessionManager *sm = Core::SessionManager::instance();
+    connect(sm, &Core::SessionManager::sessionLoaded, [this, em]() {
+        for(Core::DocumentModel::Entry *entry : Core::DocumentModel::entries())
             em->activateEditorForEntry(entry, Core::EditorManager::DoNotChangeCurrentEditor);
     });
 
@@ -69,7 +69,7 @@ TabBar::TabBar(QWidget *parent) :
             = Core::ActionManager::registerAction(prevTabAction,
                                                   TabbedEditor::Constants::PREV_TAB_ID,
                                                   Core::Context(Core::Constants::C_GLOBAL));
-    prevTabCommand->setDefaultKeySequence(QKeySequence(tr("Ctrl+Shift+J")));
+    prevTabCommand->setDefaultKeySequence(QKeySequence(tr("Ctrl+Alt+J")));
     connect(prevTabAction, SIGNAL(triggered()), this, SLOT(prevTabAction()));
 
     QAction *nextTabAction = new QAction(tr("Switch to next tab"), this);
@@ -77,7 +77,7 @@ TabBar::TabBar(QWidget *parent) :
             = Core::ActionManager::registerAction(nextTabAction,
                                                   TabbedEditor::Constants::NEXT_TAB_ID,
                                                   Core::Context(Core::Constants::C_GLOBAL));
-    nextTabCommand->setDefaultKeySequence(QKeySequence(tr("Ctrl+Shift+K")));
+    nextTabCommand->setDefaultKeySequence(QKeySequence(tr("Ctrl+Alt+K")));
     connect(nextTabAction, SIGNAL(triggered()), this, SLOT(nextTabAction()));
 }
 
@@ -94,7 +94,7 @@ void TabBar::addEditorTab(Core::IEditor *editor)
     Core::IDocument *document = editor->document();
 
     const int index = addTab(document->displayName());
-    setTabIcon(index, Core::FileIconProvider::icon(document->filePath().toFileInfo()));
+    setTabIcon(index, Utils::FileIconProvider::icon(document->filePath()));
     setTabToolTip(index, document->filePath().toString());
 
     m_editors.append(editor);
@@ -113,7 +113,7 @@ void TabBar::addEditorTab(Core::IEditor *editor)
 void TabBar::removeEditorTabs(QList<Core::IEditor *> editors)
 {
     blockSignals(true); // Avoid calling activateEditor()
-    foreach (Core::IEditor *editor, editors) {
+    for (Core::IEditor *editor : editors) {
         const int index = m_editors.indexOf(editor);
         if (index == -1)
             continue;
@@ -136,7 +136,7 @@ void TabBar::closeTab(int index)
     if (index < 0 || index >= m_editors.size())
         return;
 
-    Core::EditorManager::instance()->closeEditor(m_editors.takeAt(index));
+    Core::EditorManager::closeEditors({m_editors.takeAt(index)});
     removeTab(index);
 }
 

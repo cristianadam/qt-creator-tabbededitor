@@ -1,0 +1,15 @@
+{
+    "Id" : "tabbededitor",
+    "Name" : "TabbedEditor",
+    "Version" : "${IDE_VERSION}",
+    "CompatVersion" : "${IDE_VERSION_COMPAT}",
+    "Vendor" : "Cristian Adam",
+    "VendorId" : "cristianadam",
+    "Copyright" : "(C) 2015 Oleg Shparber, Cristian Adam, ${IDE_COPYRIGHT}",
+    "License" : "LGPLv3",
+    "Description" : "Add tabs to Qt Creator",
+    "LongDescription" : ${LONG_DESCRIPTION},
+    "Url" : "https://github.com/cristianadam/qt-creator-tabbededitor",
+    "DocumentationUrl" : "",
+    ${IDE_PLUGIN_DEPENDENCIES}
+}

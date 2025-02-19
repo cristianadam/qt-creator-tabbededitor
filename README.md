@@ -1,6 +1,12 @@
 # Qt Creator Tabbed Editor Plugin
 
-The aim of this project is to provide a tab-based experience in [Qt Creator](http://qt-project.org/wiki/Category:Tools::QtCreator).
+The aim of this project is to provide a tab-based experience in [Qt Creator](https://www.qt.io/product/development-tools).
+
+# Screenshots
+
+![qt-creator-tabbededitor-light.png](https://raw.githubusercontent.com/cristianadam/qt-creator-tabbededitor/refs/heads/master/screenshots/qt-creator-tabbededitor-light.png)
+
+![qt-creator-tabbededitor-dark.png](https://raw.githubusercontent.com/cristianadam/qt-creator-tabbededitor/refs/heads/master/screenshots/qt-creator-tabbededitor-dark.png)
 
 ## Copyright / License
 
