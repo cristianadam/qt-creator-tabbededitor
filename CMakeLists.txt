@@ -42,4 +42,5 @@ add_qtc_plugin(TabbedEditorPlugin
     constants.h
     plugin.cpp plugin.h
     tabbar.cpp tabbar.h
+    resources/res.qrc
 )

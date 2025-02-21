@@ -29,6 +29,9 @@ TabBar::TabBar(QWidget *parent) :
     setMovable(true);
     setTabsClosable(true);
     setUsesScrollButtons(true);
+    setElideMode(Qt::ElideMiddle);
+    setDrawBase(false);
+    setDocumentMode(true);
 
     QSizePolicy sp(QSizePolicy::Preferred, QSizePolicy::Fixed);
     sp.setHorizontalStretch(1);

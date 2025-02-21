@@ -1,5 +1,9 @@
 QTabBar {
-    background-color: %FRAME_BACKGROUND_COLOR%; /*#848484*/
+    background-color: %TABBAR_BACKGROUND_COLOR%;
+    border: 1px solid %TABBAR_BORDER_COLOR%;
+    border-left: none;
+    border-top: none;
+    border-right: none;
     height: 20px;
 }
 
@@ -23,21 +27,19 @@ QTabBar::close-button:hover {
 }
 
 QToolButton {
-    background-color: %TAB_SELECTED_BACKGROUND_COLOR% ; /* #636363*/
-    border: 1px solid %TAB_BORDER_COLOR%; /*#9a9a9a*/
+    background-color: %TAB_SELECTED_BACKGROUND_COLOR% ;
+    border: 1px solid %TAB_BORDER_COLOR%;
 }
 
 QTabBar::tab {
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-    stop: 0 %TAB_BACKGROUND_COLOR_FROM%, stop: 1 %TAB_BACKGROUND_COLOR_TO% );
-    /* qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #3c3c3c, stop: 1 #444444) */
+    background-color: %TAB_BACKGROUND_COLOR%;
 
-    color: #EEEEEE;
+    color: %TAB_TEXT_COLOR%;
 
-    border: 1px solid %TAB_BORDER_COLOR%; /*#313131*/
+    border: 1px solid %TAB_BORDER_COLOR%;
     border-bottom: none;
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     height: 18px;
 
     min-width: 20ex;
@@ -51,7 +53,8 @@ QTabBar::tab {
 
 /* Style the tab using the tab sub-control. Note that it reads QTabBar _not_ QTabWidget */
 QTabBar::tab:selected {
-    background-color: %TAB_SELECTED_BACKGROUND_COLOR% ; /* #636363*/
-    border: 1px solid %TAB_SELECTED_BORDER_COLOR%; /*#9a9a9a*/
-    color: white;
+    background-color: %TAB_SELECTED_BACKGROUND_COLOR%;
+    border: 1px solid %TAB_SELECTED_BORDER_COLOR%;
+    border-bottom: none;
+    color: %TAB_SELECTED_TEXT_COLOR%;
 }

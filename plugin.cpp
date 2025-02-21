@@ -60,40 +60,38 @@ void TabbedEditorPlugin::updateStyleToBaseColor()
 {
     Utils::Theme *theme = Utils::creatorTheme();
 
-    QString baseColorQss;
-    QString borderColorQss;
-    QString highlightColorQss;
-    QString selectedTabBorderColorQss;
-    QString shadowColorQss;
+    auto tabbarBackgroundColorQss = getQssStringFromColor(
+        theme->color(Utils::Theme::FancyTabBarSelectedBackgroundColor));
+    auto tabbarBorderColorQss = getQssStringFromColor(
+        theme->color(Utils::Theme::FancyToolBarSeparatorColor));
 
-    if(theme->preferredStyles().isEmpty()) {
-        baseColorQss = getQssStringFromColor(Utils::StyleHelper::baseColor().lighter(130));
-        borderColorQss = getQssStringFromColor(Utils::StyleHelper::borderColor());
-        highlightColorQss = getQssStringFromColor(Utils::StyleHelper::baseColor());
-        selectedTabBorderColorQss
-                = getQssStringFromColor(Utils::StyleHelper::highlightColor().lighter());
-        shadowColorQss = getQssStringFromColor(Utils::StyleHelper::shadowColor());
-    } else { // Flat widget style
-        baseColorQss
-                = getQssStringFromColor(theme->color(Utils::Theme::BackgroundColorHover));
-        borderColorQss = getQssStringFromColor(theme->color(Utils::Theme::BackgroundColorHover));
-        highlightColorQss = getQssStringFromColor(theme->color(Utils::Theme::BackgroundColorDark));
-        selectedTabBorderColorQss
-                = getQssStringFromColor(theme->color(Utils::Theme::BackgroundColorDark));
-        shadowColorQss = getQssStringFromColor(theme->color(Utils::Theme::BackgroundColorNormal));
-    }
+    auto tabBackgroundColorQss = getQssStringFromColor(
+        theme->color(Utils::Theme::FancyToolBarSeparatorColor));
+    auto tabBorderColorQss = getQssStringFromColor(
+        theme->color(Utils::Theme::FancyToolBarSeparatorColor));
+    auto tabTextColorQss = getQssStringFromColor(
+        theme->color(Utils::Theme::FancyTabWidgetEnabledUnselectedTextColor));
+
+    auto selectedTabBackgroundColorQss = getQssStringFromColor(
+        theme->color(Utils::Theme::FancyTabBarSelectedBackgroundColor));
+    auto selectedTabBorderColorQss = getQssStringFromColor(
+        theme->color(Utils::Theme::FancyToolBarSeparatorColor));
+    auto selectedTabTextColorQss = getQssStringFromColor(
+        theme->color(Utils::Theme::FancyTabWidgetEnabledSelectedTextColor));
 
     QString stylesheetPattern = getStylesheetPatternFromFile(QStringLiteral(":/styles/default.qss"));
 
-    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%FRAME_BACKGROUND_COLOR%"), highlightColorQss);
-    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_SELECTED_BORDER_COLOR%"), selectedTabBorderColorQss);
-    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_SELECTED_BACKGROUND_COLOR%"), baseColorQss);
-    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_SELECTED_BOTTOM_BORDER_COLOR%"), baseColorQss);
+    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TABBAR_BACKGROUND_COLOR%"), tabbarBackgroundColorQss);
+    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TABBAR_BORDER_COLOR%"), tabbarBorderColorQss);
 
-    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_BACKGROUND_COLOR_FROM%"), shadowColorQss);
-    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_BACKGROUND_COLOR_TO%"), shadowColorQss);
-    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_BORDER_COLOR%"), borderColorQss);
-    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_BOTTOM_BORDER_COLOR%"), borderColorQss);
+    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_BACKGROUND_COLOR%"), tabBackgroundColorQss);
+    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_BORDER_COLOR%"), tabBorderColorQss);
+    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_TEXT_COLOR%"), tabTextColorQss);
+
+    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_SELECTED_BACKGROUND_COLOR%"), selectedTabBackgroundColorQss);
+    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_SELECTED_BORDER_COLOR%"), selectedTabBorderColorQss);
+    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_SELECTED_TEXT_COLOR%"), selectedTabTextColorQss);
+
 
     m_tabBar->setStyleSheet(stylesheetPattern);
 }
