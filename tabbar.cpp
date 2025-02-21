@@ -136,8 +136,7 @@ void TabBar::closeTab(int index)
     if (index < 0 || index >= m_editors.size())
         return;
 
-    Core::EditorManager::closeEditors({m_editors.takeAt(index)});
-    removeTab(index);
+    Core::EditorManager::closeEditors({m_editors.value(index)});
 }
 
 void TabBar::prevTabAction()
