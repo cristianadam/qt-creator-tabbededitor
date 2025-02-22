@@ -12,17 +12,17 @@ QTabBar::tear {
 }
 
 QTabBar::tab:selected>.QTabBar::close-button {
-    image: url(:/icons/close_button_dark.png);
+    image: url("%CLOSE_PNG%");
     subcontrol-position: right;
 }
 
 QTabBar::close-button {
-    image: url(:/icons/close_button_dark.png);
+    image: url("%CLOSE_PNG%");
     subcontrol-position: right;
 }
 
 QTabBar::close-button:hover {
-    image: url(:/icons/close_button_light_grey.png);
+    image: url("%CLOSE_GRAY_PNG%");
     subcontrol-position: right;
 }
 
@@ -42,7 +42,7 @@ QTabBar::tab {
     border-top-right-radius: 5px;
     height: 18px;
 
-    min-width: 20ex;
+    min-width: 5ex;
     padding: 2px;
 
     padding-left: 8px;

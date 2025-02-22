@@ -7,6 +7,7 @@
 #include <coreplugin/icore.h>
 #include <utils/stylehelper.h>
 #include <utils/theme/theme.h>
+#include <utils/stylehelper.h>
 
 #include <QBoxLayout>
 #include <QFile>
@@ -81,18 +82,23 @@ void TabbedEditorPlugin::updateStyleToBaseColor()
 
     QString stylesheetPattern = getStylesheetPatternFromFile(QStringLiteral(":/styles/default.qss"));
 
-    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TABBAR_BACKGROUND_COLOR%"), tabbarBackgroundColorQss);
-    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TABBAR_BORDER_COLOR%"), tabbarBorderColorQss);
+    stylesheetPattern = stylesheetPattern.replace("%TABBAR_BACKGROUND_COLOR%", tabbarBackgroundColorQss);
+    stylesheetPattern = stylesheetPattern.replace("%TABBAR_BORDER_COLOR%", tabbarBorderColorQss);
 
-    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_BACKGROUND_COLOR%"), tabBackgroundColorQss);
-    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_BORDER_COLOR%"), tabBorderColorQss);
-    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_TEXT_COLOR%"), tabTextColorQss);
+    stylesheetPattern = stylesheetPattern.replace("%TAB_BACKGROUND_COLOR%", tabBackgroundColorQss);
+    stylesheetPattern = stylesheetPattern.replace("%TAB_BORDER_COLOR%", tabBorderColorQss);
+    stylesheetPattern = stylesheetPattern.replace("%TAB_TEXT_COLOR%", tabTextColorQss);
 
-    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_SELECTED_BACKGROUND_COLOR%"), selectedTabBackgroundColorQss);
-    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_SELECTED_BORDER_COLOR%"), selectedTabBorderColorQss);
-    stylesheetPattern = stylesheetPattern.replace(QLatin1String("%TAB_SELECTED_TEXT_COLOR%"), selectedTabTextColorQss);
+    stylesheetPattern = stylesheetPattern.replace("%TAB_SELECTED_BACKGROUND_COLOR%", selectedTabBackgroundColorQss);
+    stylesheetPattern = stylesheetPattern.replace("%TAB_SELECTED_BORDER_COLOR%", selectedTabBorderColorQss);
+    stylesheetPattern = stylesheetPattern.replace("%TAB_SELECTED_TEXT_COLOR%", selectedTabTextColorQss);
 
-
+    stylesheetPattern = stylesheetPattern.replace("%CLOSE_PNG%",
+                                                  Utils::StyleHelper::dpiSpecificImageFile(
+                                                      ":/icons/close_button_dark.png"));
+    stylesheetPattern = stylesheetPattern.replace("%CLOSE_GRAY_PNG%",
+                                                  Utils::StyleHelper::dpiSpecificImageFile(
+                                                      ":/icons/close_button_light_grey.png"));
     m_tabBar->setStyleSheet(stylesheetPattern);
 }
 
