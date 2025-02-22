@@ -37,7 +37,6 @@ QTabBar::tab {
     color: %TAB_TEXT_COLOR%;
 
     border: 1px solid %TAB_BORDER_COLOR%;
-    border-bottom: none;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     height: 18px;
@@ -55,6 +54,5 @@ QTabBar::tab {
 QTabBar::tab:selected {
     background-color: %TAB_SELECTED_BACKGROUND_COLOR%;
     border: 1px solid %TAB_SELECTED_BORDER_COLOR%;
-    border-bottom: none;
     color: %TAB_SELECTED_TEXT_COLOR%;
 }

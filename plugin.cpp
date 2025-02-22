@@ -57,6 +57,11 @@ QString TabbedEditorPlugin::getStylesheetPatternFromFile(const QString &filepath
     return QString::fromUtf8(stylesheetFile.readAll());
 }
 
+static bool isDarkTheme()
+{
+    return Utils::creatorTheme() && Utils::creatorTheme()->flag(Utils::Theme::DarkUserInterface);
+}
+
 void TabbedEditorPlugin::updateStyleToBaseColor()
 {
     Utils::Theme *theme = Utils::creatorTheme();
@@ -67,14 +72,14 @@ void TabbedEditorPlugin::updateStyleToBaseColor()
         theme->color(Utils::Theme::FancyToolBarSeparatorColor));
 
     auto tabBackgroundColorQss = getQssStringFromColor(
-        theme->color(Utils::Theme::FancyToolBarSeparatorColor));
+        theme->color(Utils::Theme::FancyTabBarSelectedBackgroundColor));
     auto tabBorderColorQss = getQssStringFromColor(
         theme->color(Utils::Theme::FancyToolBarSeparatorColor));
     auto tabTextColorQss = getQssStringFromColor(
         theme->color(Utils::Theme::FancyTabWidgetEnabledUnselectedTextColor));
 
     auto selectedTabBackgroundColorQss = getQssStringFromColor(
-        theme->color(Utils::Theme::FancyTabBarSelectedBackgroundColor));
+        theme->color(Utils::Theme::FancyToolBarSeparatorColor));
     auto selectedTabBorderColorQss = getQssStringFromColor(
         theme->color(Utils::Theme::FancyToolBarSeparatorColor));
     auto selectedTabTextColorQss = getQssStringFromColor(
@@ -93,12 +98,21 @@ void TabbedEditorPlugin::updateStyleToBaseColor()
     stylesheetPattern = stylesheetPattern.replace("%TAB_SELECTED_BORDER_COLOR%", selectedTabBorderColorQss);
     stylesheetPattern = stylesheetPattern.replace("%TAB_SELECTED_TEXT_COLOR%", selectedTabTextColorQss);
 
-    stylesheetPattern = stylesheetPattern.replace("%CLOSE_PNG%",
-                                                  Utils::StyleHelper::dpiSpecificImageFile(
-                                                      ":/icons/close_button_dark.png"));
-    stylesheetPattern = stylesheetPattern.replace("%CLOSE_GRAY_PNG%",
-                                                  Utils::StyleHelper::dpiSpecificImageFile(
-                                                      ":/icons/close_button_light_grey.png"));
+    if (isDarkTheme()) {
+        stylesheetPattern = stylesheetPattern.replace("%CLOSE_PNG%",
+                                                      Utils::StyleHelper::dpiSpecificImageFile(
+                                                          ":/icons/close_button_light_grey.png"));
+        stylesheetPattern = stylesheetPattern.replace("%CLOSE_GRAY_PNG%",
+                                                      Utils::StyleHelper::dpiSpecificImageFile(
+                                                          ":/icons/close_button_dark.png"));
+    } else {
+        stylesheetPattern = stylesheetPattern.replace("%CLOSE_PNG%",
+                                                      Utils::StyleHelper::dpiSpecificImageFile(
+                                                          ":/icons/close_button_dark.png"));
+        stylesheetPattern = stylesheetPattern.replace("%CLOSE_GRAY_PNG%",
+                                                      Utils::StyleHelper::dpiSpecificImageFile(
+                                                          ":/icons/close_button_light_grey.png"));
+    }
     m_tabBar->setStyleSheet(stylesheetPattern);
 }
 
