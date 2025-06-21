@@ -21,12 +21,9 @@ TabbedEditorPlugin::TabbedEditorPlugin() :
 {
 }
 
-bool TabbedEditorPlugin::initialize(const QStringList &arguments, QString *errorString)
+void TabbedEditorPlugin::initialize()
 {
-    Q_UNUSED(arguments)
-    Q_UNUSED(errorString)
-
-    connect(Core::EditorManager::instance(), SIGNAL(editorOpened(Core::IEditor*)), SLOT(showTabBar()));
+    connect(Core::EditorManager::instance(), &Core::EditorManager::editorOpened, this, &TabbedEditorPlugin::showTabBar);
 
     QMainWindow *mainWindow = qobject_cast<QMainWindow *>(Core::ICore::mainWindow());
     mainWindow->layout()->setSpacing(0);
@@ -45,8 +42,6 @@ bool TabbedEditorPlugin::initialize(const QStringList &arguments, QString *error
     wrapper->setLayout(layout);
 
     mainWindow->setCentralWidget(wrapper);
-
-    return true;
 }
 
 QString TabbedEditorPlugin::getStylesheetPatternFromFile(const QString &filepath)
