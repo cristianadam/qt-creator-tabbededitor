@@ -98,7 +98,7 @@ void TabBar::addEditorTab(Core::IEditor *editor)
 
     const int index = addTab(document->displayName());
     setTabIcon(index, Utils::FileIconProvider::icon(document->filePath()));
-    setTabToolTip(index, document->filePath().toString());
+    setTabToolTip(index, document->filePath().toUrlishString());
 
     m_editors.append(editor);
 
@@ -166,15 +166,14 @@ void TabBar::contextMenuEvent(QContextMenuEvent *event)
     if (index == -1)
         return;
 
-    QScopedPointer<QMenu> menu(new QMenu());
+    QMenu menu;
 
     Core::IEditor *editor = m_editors[index];
     Core::DocumentModel::Entry *entry = Core::DocumentModel::entryForDocument(editor->document());
-    Core::EditorManager::addSaveAndCloseEditorActions(menu.data(), entry, editor);
-    menu->addSeparator();
-    Core::EditorManager::addNativeDirAndOpenWithActions(menu.data(), entry);
+    Core::EditorManager::addContextMenuActions(&menu, entry, editor,
+                                               Core::EditorManager::ShowEditorActions);
 
-    menu->exec(mapToGlobal(event->pos()));
+    menu.exec(mapToGlobal(event->pos()));
 }
 
 void TabBar::mouseReleaseEvent(QMouseEvent *event)
