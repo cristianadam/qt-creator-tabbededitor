@@ -175,10 +175,3 @@ void TabBar::contextMenuEvent(QContextMenuEvent *event)
 
     menu.exec(mapToGlobal(event->pos()));
 }
-
-void TabBar::mouseReleaseEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::MiddleButton)
-        closeTab(tabAt(event->pos()));
-    QTabBar::mouseReleaseEvent(event);
-}

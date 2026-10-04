@@ -34,7 +34,6 @@ private slots:
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
-    void mouseReleaseEvent(QMouseEvent *event) override;
 
 private:
     QList<Core::IEditor *> m_editors;
